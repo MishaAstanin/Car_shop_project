@@ -1,0 +1,30 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card {
+    margin: 5px;
+}
+
+.create-btn {
+    text-decoration: none;
+    background-color: #457b9d;
+    color: white;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 0 10px 8px rgba(34, 60, 80, 0.2);
+    border: solid 1px black;
+}
+
+.create-btn:hover {
+    color: white;
+    transform: scale(1.03);
+}
+
+.btn-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}

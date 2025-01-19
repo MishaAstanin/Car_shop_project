@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Создать тест-драйв</title>
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            crossorigin="anonymous">
+</head>
+<body>
+<header th:replace="/header :: header"></header>
+<main>
+    <div style="margin:10px 30%">
+        <form th:action="@{/tests/add/{id}(id=${id_car})}" th:object="${test}" method="post">
+            <div class="mb-3">
+                <label for="date" class="form-label">Дата</label>
+                <input type="date" class="form-control" id="date" th:field="*{testDate}" required>
+            </div>
+            <div class="mb-3">
+                <label for="duration" class="form-label">Продолжительность</label>
+                <input type="text" class="form-control" id="duration" th:field="*{duration}" required>
+            </div>
+            <div class="mb-3">
+                <label for="client" class="form-label">Номер клиента</label>
+                <input type="number" class="form-control" id="client" th:field="*{idClient}" required>
+            </div>
+            <div class="mb-3">
+                <label for="employee" class="form-label">Номер сотрудника</label>
+                <input type="number" class="form-control" id="employee" th:field="*{idEmployee}" required>
+            </div>
+
+
+            <button type="submit" class="btn btn-primary">Добавить</button>
+        </form>
+    </div>
+</main>
+</body>
+</html>

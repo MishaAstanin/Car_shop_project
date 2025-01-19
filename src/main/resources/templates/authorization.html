@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход</title>
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            crossorigin="anonymous">
+</head>
+<body>
+<header th:replace="/header :: header"></header>
+<main>
+    <form id="enter-form" th:action="@{/login}" th:object="${user}" th:method="POST">
+        <h2>Авторизация</h2>
+        <div>
+            <label for="loginUsername" class="form-label">Имя пользователя</label>
+            <input class="form-control" type="text" id="loginUsername" placeholder="Username" th:field="*{username}" required>
+            <label for="loginPassword" class="form-label">Пароль</label>
+            <input class="form-control" type="password" id="loginPassword" placeholder="Password" th:field="*{password}" required>
+            <button class="btn btn-success" type="submit" style="margin: 10px">Войти</button>
+        </div>
+        <button class="btn btn-primary" id="let-register"  style="margin: 10px">Создать аккаунт</button>
+    </form>
+
+
+    <form id="registration-form" style="display: none" th:action="@{/registration}" th:object="${user}" th:method = "POST">
+        <h2>Регистрация</h2>
+        <div>
+            <label for="regUsername" class="form-label">Имя пользователя</label>
+            <input type="text" id="regUsername" class="form-control" placeholder="Username" th:field="*{username}" required>
+            <label for="regPassword" class="form-label">Пароль</label>
+            <input type="password" id="regPassword" class="form-control" placeholder="Password" th:field="*{password}" required>
+            <button class="btn btn-success" type="submit" style="margin: 10px">Зарегистрироваться</button>
+        </div>
+    </form>
+</main>
+<script src="/static/js/functions.js"></script>
+</body>
+</html>

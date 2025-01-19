@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:if="${car != null}" th:text="${car.brand} + ' ' + ${car.model}"></title>
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/car-detail.css">
+</head>
+<body>
+<header th:replace="/header :: header"></header>
+<main>
+    <div th:if="${car != null}" class="card">
+        <h5 th:text="${info}" class="card-header"></h5>
+        <div class="card-body">
+            <h5 th:text="${car.brand} + ' ' + ${car.model}" class="card-title"></h5>
+            <p th:utext="'<b>VIN номер:</b> ' + ${car.vin}" class="card-text"></p>
+            <p th:utext="'<b>Марка:</b> ' + ${car.brand}" class="card-text"></p>
+            <p th:utext="'<b>Модель:</b> ' + ${car.model}" class="card-text"></p>
+            <p th:utext="'<b>Цвет:</b> ' + ${car.color}" class="card-text"></p>
+            <p th:utext="'<b>Цена:</b> ' + ${#numbers.formatInteger(car.price, 0, 'WHITESPACE')} + ' руб.'"></p>
+            <div class="function-container">
+                <p th:utext="'<b>Год выпуска:</b> ' + ${car.year}" class="card-text"></p>
+                <div>
+                    <button id="myButtonY" onclick="callRepositoryFunctionY()">Кол-во авто данного года выпуска</button>
+                    <span id="resultDivY"></span>
+                </div>
+            </div>
+            <p th:utext="'<b>Комплектация:</b> ' + ${car.equipment}" class="card-text"></p>
+            <p th:utext="'<b>Привод:</b> ' + ${car.typeDriveUnit}" class="card-text"></p>
+            <p th:utext="'<b>Объем двигателя:</b> ' + ${car.engineCapacity} + ' л.'" class="card-text"></p>
+            <div class="function-container">
+                <p th:utext="'<b>Тип двигателя:</b> ' + ${car.typeEngine}" class="card-text"></p>
+                <div>
+                    <button id="myButtonE" onclick="callRepositoryFunctionE()">Кол-во авто с данным типом двигателя</button>
+                    <span id="resultDivE"></span>
+                </div>
+            </div>
+            <p th:utext="'<b>Тип кузова:</b> ' + ${car.typeBody}" class="card-text"></p>
+            <p th:utext="'<b>Тип коробки:</b> ' + ${car.typeBox}" class="card-text"></p>
+            <div th:if="${is_bought}" class="status-rectangle" style="background: red">
+                <p>Продано</p>
+            </div>
+            <div th:unless="${is_bought}" class="status-rectangle" style="background: green">
+                <p>В наличии</p>
+            </div>
+            <div style="margin-top: 10px">
+                <button th:unless="${is_bought}" type="button" class="btn btn-success"><a th:href="@{/contracts/add/{id}(id=${car.id_car})}" style="text-decoration: none; color: white">Оформить договор</a></button>
+            </div>
+            <div style="margin-top: 10px">
+                <button th:unless="${is_bought}" type="button" class="btn btn-info"><a th:href="@{/tests/add/{id}(id=${car.id_car})}" style="text-decoration: none; color: white">Оформить тест-драйв</a></button>
+            </div>
+        </div>
+    </div>
+    <div th:if="${car == null}">
+        Авто не существует
+    </div>
+
+    <script th:inline="javascript">
+        function callRepositoryFunctionE() {
+            const result = /*[[${service.getCountByEngine(car.typeEngine)}]]*/ '';
+            document.getElementById('resultDivE').textContent = result;
+        }
+        document.getElementById('myButtonE').addEventListener('click', callRepositoryFunctionE);
+    </script>
+
+    <script th:inline="javascript">
+        function callRepositoryFunctionY() {
+            const result = /*[[${service.getCountByYear(car.year)}]]*/ '';
+            document.getElementById('resultDivY').textContent = result;
+        }
+        document.getElementById('myButtonY').addEventListener('click', callRepositoryFunctionY);
+    </script>
+
+</main>
+</body>
+</html>

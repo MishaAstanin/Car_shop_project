@@ -1,0 +1,19 @@
+.link-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.car-link {
+    text-decoration: none;
+    background-color: cadetblue;
+    color: black;
+    border-radius: 10px;
+    padding: 10px;
+    border: 1px solid #780000;
+    margin: 5px;
+}
+
+.car-link:hover {
+    transform: scale(1.03);
+    color: black;
+}

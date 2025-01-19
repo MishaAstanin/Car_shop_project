@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Автомобили</title>
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/cars.css">
+</head>
+<body>
+<header th:replace="/header :: header"></header>
+<main>
+    <h5 style="text-align: center">Сортировка</h5>
+    <div class="sort-container">
+        <a th:href="@{/cars/all?sortBy=brand&orderBy=asc}" class="sort-btn">Марка (по возрастанию)</a>
+        <a th:href="@{/cars/all?sortBy=brand&orderBy=desc}" class="sort-btn">Марка (по убыванию)</a>
+        <a th:href="@{/cars/all?sortBy=price&orderBy=asc}" class="sort-btn">Цена (по возрастанию)</a>
+        <a th:href="@{/cars/all?sortBy=price&orderBy=desc}" class="sort-btn">Цена (по убыванию)</a>
+        <a th:href="@{/cars/all?sortBy=year&orderBy=asc}" class="sort-btn">Год выпуска (по возрастанию)</a>
+        <a th:href="@{/cars/all?sortBy=year&orderBy=desc}" class="sort-btn">Год выпуска (по убыванию)</a>
+    </div>
+    <div th:unless="${cars.isEmpty()}" class="catalog">
+        <h1>Автомобили салона</h1>
+
+        <div th:each="car : ${cars}" class="catalog-item">
+            <div class="catalog-text">
+                <p th:text="${car.brand}" class="catalog-item-text"></p>
+                <p th:text="${car.model}" class="catalog-item-text"></p>
+                <p th:text="'Цвет: ' + ${car.color}" class="catalog-item-text"></p>
+                <p th:text="'Год: ' + ${car.year}" class="catalog-item-text"></p>
+                <p th:text="'Цена: ' + ${#numbers.formatInteger(car.price, 0, 'WHITESPACE')}"></p>
+            </div>
+            <a class="catalog-btn" th:href="@{/cars/{id}(id=${car.id_car})}">Подробнее</a>
+        </div>
+        <p th:text="'Средняя стоимость автомобилей: ' + ${avg}" style="text-align: center"></p>
+    </div>
+    <div th:if="${cars.isEmpty()}">
+        <p>Автомобилей нет</p>
+    </div>
+</main>
+</body>
+</html>

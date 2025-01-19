@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:if="${employee != null}" th:text="${employee.surname} + ' ' + ${employee.name}"></title>
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/employee-detail.css">
+</head>
+<body>
+<header th:replace="/header :: header"></header>
+<main>
+    <div th:if="${employee != null}" class="card">
+        <h5 th:text="${info}" class="card-header"></h5>
+        <div class="card-body">
+            <h5 th:text="${employee.surname} + ' ' + ${employee.name}" class="card-title"></h5>
+            <p th:utext="'<b>Номер сотрудника:</b> ' + ${employee.id_employee}" class="card-text"></p>
+            <p th:if="${employee.patronymic != null}" th:utext="'<b>ФИО:</b> ' + ${employee.surname} + ' ' + ${employee.name} + ' ' + ${employee.patronymic}" class="card-text"></p>
+            <p th:if="${employee.patronymic == null}" th:utext="'<b>ФИО:</b> ' + ${employee.surname} + ' ' + ${employee.name}" class="card-text"></p>
+            <p th:utext="'<b>Телефон:</b> ' + ${employee.phone}" class="card-text"></p>
+            <p th:utext="'<b>Почта:</b> ' + ${employee.email}" class="card-text"></p>
+            <p th:utext="'<b>День рождения:</b> ' + ${employee.birthday}" class="card-text"></p>
+            <p th:utext="'<b>Должность:</b> ' + ${employee.position}" class="card-text"></p>
+        </div>
+        <h5 class="card-header">Авто, на которые оформил тест-драйв данный сотрудник</h5>
+        <p th:if="${cars.size() == 0}" style="margin: 10px">Сотрудник не оформлял тест-драйвов</p>
+        <div class="link-container">
+            <a class="car-link" th:each="car : ${cars}" th:text="${car.brand} + ' ' + ${car.model}" th:href="@{/cars/{id}(id=${car.id_car})}"></a>
+        </div>
+    </div>
+    <div th:if="${employee == null}">
+        Сотрудника не существует
+    </div>
+</main>
+</body>
+</html>

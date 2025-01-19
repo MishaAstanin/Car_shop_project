@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Гарантийное обслуживание</title>
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            crossorigin="anonymous">
+</head>
+<body>
+<header th:replace="/header :: header"></header>
+<main>
+    <div th:unless="${viewContracts.isEmpty()}" style="display: flex; flex-wrap: wrap; justify-content: center">
+        <div th:each="contract : ${viewContracts}" class="card" style="margin: 10px">
+            <h5 th:text="${contract.number}" class="card-header"></h5>
+            <div class="card-body">
+                <h5 th:text="${contract.date}" class="card-title">Special title treatment</h5>
+                <p th:utext="'<b>Клиент:</b> ' + ${contract.surname} + ' ' + ${contract.name}" class="card-text"></p>
+                <p th:utext="'<b>Автомобиль:</b> ' + ${contract.brand} + ' ' + ${contract.model}" class="card-text"></p>
+                <p th:utext="'<b>Характеристики:</b> ' + ${contract.color} + ' ' + ${contract.price} + ' ' + ${contract.year}" class="card-text"></p>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>
